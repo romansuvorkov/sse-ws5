@@ -56,13 +56,11 @@ app.use(router.routes()).use(router.allowedMethods());
 const instances = [];
 
 router.get('/instances', async (ctx, next) => {
-  console.log('get index');
   ctx.response.body = instances;
   console.log(instances);
 });
 
 router.post('/instances', async (ctx, next) => {
-  console.log('add inst');
   const id = uuid.v4();
   let startMessage = JSON.stringify({
       type: 'server log',
@@ -97,7 +95,6 @@ router.post('/instances', async (ctx, next) => {
   ctx.response.body = {
     status: 'ok'
   };
-  console.log(instances);
 });
 
 router.patch('/instances/:id', async (ctx, next) => {
@@ -142,7 +139,6 @@ router.patch('/instances/:id', async (ctx, next) => {
   ctx.response.body = {
     status: 'ok'
   }
-  console.log(instances);
 });
 
 router.delete('/instances/:id', async (ctx, next) => {
@@ -179,13 +175,11 @@ router.delete('/instances/:id', async (ctx, next) => {
   ctx.response.body = {
     status: 'ok'
   }
-  console.log(instances);
 });
 
 wsServer.on('connection', (ws, req) => {
   console.log('connection');
   ws.on('message', msg => {
-    console.log('msg');
     [...wsServer.clients]
     .filter(o => {
       return o.readyState === WS.OPEN;
